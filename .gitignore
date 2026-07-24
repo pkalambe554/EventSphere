@@ -1,1 +1,21 @@
-/.metadata/
+# Eclipse / STS
+.settings/
+.project
+.classpath
+
+# Build
+target/
+
+# Logs
+*.log
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,5 @@
+package com.eventsphere.auth.dto;
+
+// TODO: email + password fields
+public class LoginRequest {
+}
