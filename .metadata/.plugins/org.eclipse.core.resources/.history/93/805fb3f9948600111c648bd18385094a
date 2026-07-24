@@ -1,5 +1,0 @@
-package com.eventsphere.auth.dto;
-
-// TODO: email + password fields, with @Email / @NotBlank / @Size validation
-public class RegisterRequest {
-}

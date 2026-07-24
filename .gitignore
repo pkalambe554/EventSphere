@@ -1,21 +1,27 @@
+# Eclipse Workspace
+.metadata/
+
 # Eclipse / STS
-.settings/
-.project
-.classpath
+**/.settings/
+**/.project
+**/.classpath
 
-# Build
-target/
+# Maven
+**/target/
 
-# Logs
-*.log
+# Node
+**/node_modules/
+
+# VS Code
+.vscode/
 
 # IntelliJ
 .idea/
 *.iml
 
-# VS Code
-.vscode/
+# Logs
+*.log
 
-# OS files
+# OS
 .DS_Store
 Thumbs.db

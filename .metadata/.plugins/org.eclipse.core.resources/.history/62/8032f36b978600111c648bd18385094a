@@ -1,5 +1,0 @@
-package com.eventsphere.auth.dto;
-
-// TODO: accessToken, email, role fields
-public class AuthResponse {
-}

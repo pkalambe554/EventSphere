@@ -6,6 +6,7 @@ public class AuthResponse {
 	private String accessToken;
 	private String email;
 	private String role;
+	
 	public String getAccessToken() {
 		return accessToken;
 	}
