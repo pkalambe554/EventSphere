@@ -36,12 +36,14 @@ public class AuthService {
 	
 	public AuthResponse register (RegisterRequest request) {
 		if(userRepository.existsByEmail(request.getEmail())) {
-			new ApiException(HttpStatus.CONFLICT, "An User Account With This Email Is already exists.");
+			System.out.println("exis-->"+request.getEmail());
+		 throw	new ApiException(HttpStatus.CONFLICT, "An User Account With This Email Is already exists.");
 		}
 		User user= new User(); 
 		user.setEmail(request.getEmail());
 		user.setRole(Role.USER);
 		user.setPassword(passwordEncoder.encode(request.getPassword()));
+		System.out.println("user-->"+user);
 		userRepository.save(user);
 		
 		String token = jwtUtil.getAccessToken(request.getEmail(), user.getRole().name());
@@ -56,9 +58,9 @@ public class AuthService {
 	
 	public AuthResponse login (LoginRequest login) {
 		User user = userRepository.findByEmail(login.getEmail())
-				.orElseThrow(()-> new ApiException(HttpStatus.UNAUTHORIZED, "Invalid username or password"));
+				.orElseThrow(()->  new ApiException(HttpStatus.UNAUTHORIZED, "Invalid username or password"));
 		if(!passwordEncoder.matches(login.getPassword(),user.getPassword())) {
-			new ApiException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
+		throw	new ApiException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
 		}
 		String token =jwtUtil.getAccessToken(user.getEmail(), user.getRole().name());
 		AuthResponse response = new AuthResponse();
