@@ -32,8 +32,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-//                    .requestMatchers("/test/**").permitAll()   // Allow JWT test endpoints
-            		.anyRequest().permitAll()
+                    .requestMatchers("/api/auth/**").permitAll()   // Allow JWT test endpoints
+            		.anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
