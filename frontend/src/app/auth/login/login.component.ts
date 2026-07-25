@@ -1,0 +1,48 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-login',
+    standalone: true,
+  imports: [CommonModule, ReactiveFormsModule ,],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  form:FormGroup;
+  errorMessage: string = '';
+  loading:boolean=false;
+  constructor(private authService: AuthService ,
+              private fb: FormBuilder,
+              private router : Router) {
+               this.form=this.fb.group({
+                email:['',[Validators.required,Validators.email]],
+                password:['',[Validators.required]]
+               }) 
+               }
+
+  onSubmit(){
+    if(this.form.invalid){
+      return;
+    }
+    this.loading=true;
+    this.authService.login(this.form.value).subscribe({
+      next:(res)=>{
+        this.loading=false;
+        console.log('Login successful:',res);
+        this.router.navigate(['/']);
+        },
+        error:(err)=>{
+          this.loading=false;
+          this.errorMessage=err.error.message || 'Login failed. Please try again.';
+        }
+    })
+  }
+
+  ngOnInit() {
+  }
+
+}
