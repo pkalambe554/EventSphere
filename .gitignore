@@ -1,0 +1,29 @@
+# Eclipse Workspace
+.metadata/
+
+# Eclipse / STS
+**/.settings/
+**/.project
+**/.classpath
+
+# Maven
+**/target/
+
+# Node
+**/node_modules/
+
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+frontend/.angular/

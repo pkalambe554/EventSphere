@@ -1,0 +1,40 @@
+<div class="auth-screen">
+  <aside class="auth-hero">
+    <div class="auth-hero__content">
+      <p class="auth-hero__eyebrow">EVENTSPHERE</p>
+      <h1 class="auth-hero__title">Your seat<br>is waiting.</h1>
+      <p class="auth-hero__sub">Log in to manage your bookings and hold your spot before it's gone.</p>
+    </div>
+  </aside>
+
+  <main class="auth-panel">
+    <div class="ticket-card">
+      <span class="ticket-card__stub">ADMIT ONE</span>
+      <h2 class="ticket-card__title">Welcome back</h2>
+      <p class="ticket-card__subtitle">Log in to continue.</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="ticket-form">
+        <label class="field">
+          <span class="field__label">Email</span>
+          <input type="email" formControlName="email" placeholder="you@example.com" />
+          <span class="field__error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+            Enter a valid email.
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Password</span>
+          <input type="password" formControlName="password" placeholder="••••••••" />
+        </label>
+
+        <p class="form-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+        <button type="submit" class="btn-primary" [disabled]="form.invalid || loading">
+          {{ loading ? 'Logging in…' : 'Log in' }}
+        </button>
+      </form>
+
+      <p class="ticket-card__footer">New here? <a routerLink="/register">Create an account</a></p>
+    </div>
+  </main>
+</div>

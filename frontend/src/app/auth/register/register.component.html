@@ -1,0 +1,46 @@
+<div class="auth-screen">
+  <aside class="auth-hero">
+    <div class="auth-hero__content">
+      <p class="auth-hero__eyebrow">EVENTSPHERE</p>
+      <h1 class="auth-hero__title">Book it<br>before it's gone.</h1>
+      <p class="auth-hero__sub">Create an account to start booking events and holding seats in real time.</p>
+    </div>
+  </aside>
+
+  <main class="auth-panel">
+    <div class="ticket-card">
+      <span class="ticket-card__stub">ADMIT ONE</span>
+      <h2 class="ticket-card__title">Create your account</h2>
+      <p class="ticket-card__subtitle">Takes less than a minute.</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="ticket-form">
+        <label class="field">
+          <span class="field__label">Email</span>
+          <input type="email" formControlName="email" placeholder="you@example.com" />
+          <span class="field__error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+            Enter a valid email.
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Password</span>
+          <input type="password" formControlName="password" placeholder="••••••••" />
+          <span class="field__hint" *ngIf="!(form.get('password')?.touched && form.get('password')?.invalid)">
+            At least 8 characters.
+          </span>
+          <span class="field__error" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+            Password must be at least 8 characters.
+          </span>
+        </label>
+
+        <p class="form-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+        <button type="submit" class="btn-primary" [disabled]="form.invalid || loading">
+          {{ loading ? 'Registering…' : 'Create account' }}
+        </button>
+      </form>
+
+      <p class="ticket-card__footer">Already have an account? <a routerLink="/login">Log in</a></p>
+    </div>
+  </main>
+</div>

@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /
+    context-path: /event
 
 spring:
   application:
@@ -9,14 +9,15 @@ spring:
 
   datasource:
     url: jdbc:mysql://localhost:3306/eventsphere?useSSL=false&serverTimezone=UTC
-    username: eventsphere_user
-    password: eventsphere_pass
+    username: root
+    password: Pratham@612
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
     properties:
       hibernate:
         format_sql: true
@@ -30,7 +31,9 @@ spring:
     bootstrap-servers: localhost:9092
 
 jwt:
-  secret: ${JWT_SECRET:change-this-in-local-env-file}
+  # HS256 requires a key of at least 256 bits (32+ characters).
+  # Override with JWT_SECRET env var or application-local.yml in real use.
+  secret: ${JWT_SECRET:eventsphere-dev-secret-please-change-1234567890}
   access-token-expiry-ms: 900000
   refresh-token-expiry-ms: 604800000
 
