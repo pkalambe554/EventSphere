@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+
+:root {
+  --ink: #14172b;
+  --ink-soft: #5b5f76;
+  --paper: #fbf8f2;
+  --amber: #e8a33d;
+  --amber-deep: #c8841f;
+  --teal: #2f6f62;
+  --line: #d8d2c4;
+}
+
+.events-page {
+  min-height: 100vh;
+  background: var(--paper);
+  padding: 3rem 1.5rem 4rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+}
+
+.events-header {
+  max-width: 1040px;
+  margin: 0 auto 2.5rem;
+}
+
+.events-header__eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--amber-deep);
+  margin: 0 0 0.6rem;
+}
+
+.events-header__title {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  margin: 0 0 0.4rem;
+}
+
+.events-header__sub {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.events-grid {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.event-ticket {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 18px 36px -22px rgba(20, 23, 43, 0.28);
+  overflow: hidden;
+}
+
+.event-ticket::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-image: radial-gradient(circle, var(--line) 1.4px, transparent 1.6px);
+  background-size: 10px 100%;
+  background-repeat: repeat-x;
+}
+
+.event-ticket__body {
+  padding: 1.5rem 1.25rem 1.4rem;
+  min-width: 0;
+}
+
+.event-ticket__category {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+  background: rgba(47, 111, 98, 0.1);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  margin-bottom: 0.7rem;
+}
+
+.event-ticket__title {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0 0 0.4rem;
+  overflow-wrap: break-word;
+}
+
+.event-ticket__venue {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.15rem;
+}
+
+.event-ticket__date {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.event-ticket__stub {
+  position: relative;
+  width: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  text-align: center;
+}
+
+.event-ticket__stub::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 2px dashed rgba(251, 248, 242, 0.35);
+}
+
+.event-ticket__seats-count {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--amber);
+  line-height: 1;
+}
+
+.event-ticket__seats-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: rgba(251, 248, 242, 0.7);
+  margin-top: 0.3rem;
+}
+
+.event-ticket__seats-count--low {
+  color: #e8734a;
+}
+
+.events-empty,
+.events-loading {
+  max-width: 1040px;
+  margin: 3rem auto;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-ticket {
+    transition: none;
+  }
+}
