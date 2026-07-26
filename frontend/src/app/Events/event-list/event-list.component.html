@@ -1,0 +1,33 @@
+<div class="events-page">
+  <header class="events-header">
+    <p class="events-header__eyebrow">EVENTSPHERE</p>
+    <h1 class="events-header__title">Upcoming events</h1>
+    <p class="events-header__sub">Browse what's on — no login needed to look.</p>
+  </header>
+
+  <p class="events-loading" *ngIf="loading">Loading events…</p>
+
+  <p class="events-empty" *ngIf="!loading && events.length === 0">
+    No events yet. Check back soon.
+  </p>
+
+  <div class="events-grid" *ngIf="!loading && events.length > 0">
+    <article class="event-ticket" *ngFor="let e of events">
+      <div class="event-ticket__body">
+        <span class="event-ticket__category" *ngIf="e.category">{{ e.category }}</span>
+        <h2 class="event-ticket__title">{{ e.title }}</h2>
+        <p class="event-ticket__venue">{{ e.venue }}</p>
+        <p class="event-ticket__date">{{ e.eventDateTime | date: 'MMM d, y · h:mm a' }}</p>
+      </div>
+
+      <div class="event-ticket__stub">
+        <span
+          class="event-ticket__seats-count"
+          [class.event-ticket__seats-count--low]="e.availableSeats < e.totalSeats * 0.1">
+          {{ e.availableSeats }}
+        </span>
+        <span class="event-ticket__seats-label">SEATS LEFT</span>
+      </div>
+    </article>
+  </div>
+</div>
