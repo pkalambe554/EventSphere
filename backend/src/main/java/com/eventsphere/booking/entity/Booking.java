@@ -43,7 +43,7 @@ public class Booking {
 	private Instant createdAt;
 	
 	@Column(name="EXPIRES_AT")
-	private Instant expires_at;
+	private Instant expiresAt;
 	
 	@PrePersist
 	 void onCreate() {
@@ -90,12 +90,12 @@ public class Booking {
 		this.createdAt = createdAt;
 	}
 
-	public Instant getExpires_at() {
-		return expires_at;
+	public Instant getExpiresAt() {
+		return expiresAt;
 	}
 
-	public void setExpires_at(Instant expires_at) {
-		this.expires_at = expires_at;
+	public void setExpiresAt(Instant expires_at) {
+		this.expiresAt = expires_at;
 	}
 	
 	

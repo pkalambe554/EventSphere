@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eventsphere.booking.entity.Booking;
 import com.eventsphere.booking.entity.Seats;
 import com.eventsphere.booking.service.BookingService;
 
@@ -24,7 +25,7 @@ public class BookingController {
 	}
 	
 	@PostMapping("/hold/{seatId}")
-	public Seats holdSeat(@PathVariable Long seatId) {
+	public Booking holdSeat(@PathVariable Long seatId) {
 		return this.bookingService.holdSeat(seatId);
 	}
 	
