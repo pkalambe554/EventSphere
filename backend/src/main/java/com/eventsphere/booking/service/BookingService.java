@@ -2,6 +2,7 @@ package com.eventsphere.booking.service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,6 +63,10 @@ public class BookingService {
 		b.setStatus(Status.EXPIRED);
 		this.bookingRepository.save(b);
 		}
+	}
+	
+	public Optional<Booking> findByBookId(Long bookId) {
+		return bookingRepository.findById(bookId);
 	}
 	
 }

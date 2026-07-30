@@ -45,4 +45,10 @@ public class EventController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(ev);
 	}
 	
+	@GetMapping("/{id}/available-seats")
+	public long getAvailableSeats(@PathVariable Long id) {
+	    Event event = eventService.getById(id);
+	    return eventService.getAvailableSeatCount(event);
+	}
+	
 }

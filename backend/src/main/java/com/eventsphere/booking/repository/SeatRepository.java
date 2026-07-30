@@ -5,7 +5,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 
+import com.eventsphere.booking.entity.SeatStatus;
 import com.eventsphere.booking.entity.Seats;
+import com.eventsphere.event.entity.Event;
 
 import jakarta.persistence.LockModeType;
 
@@ -13,5 +15,7 @@ public interface SeatRepository extends JpaRepository<Seats, Long> {
 	
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	 Optional<Seats>findWithLockBySeatId(Long seatId);
+	
+	long countByEventAndSeatStatus(Event event, SeatStatus seatStatus);
 
 }
