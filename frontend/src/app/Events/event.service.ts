@@ -16,4 +16,8 @@ export class EventService {
   getEventById(event_id: number): Observable<EventItem> {
     return this.http.get<EventItem>(`/api/events/${event_id}`);
   }
+
+  getAvailableSeats(eventId: number): Observable<number> {
+    return this.http.get<number>(`/api/events/${eventId}/available-seats`);
+  }
 }
