@@ -22,6 +22,7 @@ import com.eventsphere.booking.entity.Status;
 import com.eventsphere.booking.repository.BookingRepository;
 import com.eventsphere.booking.repository.SeatRepository;
 import com.eventsphere.common.exception.ApiException;
+import com.eventsphere.notification.NotificationProducer;
 import com.eventsphere.payment.entity.Payment;
 import com.eventsphere.payment.entity.PaymentStatus;
 import com.eventsphere.payment.repository.PaymentRepository;
@@ -33,12 +34,15 @@ public class PaymentService {
 	private final PaymentRepository paymentRepository;
 	private final BookingRepository bookingRepository;
 	private final SeatRepository seatRepository;
+	private final NotificationProducer notificationProducer;
 	public PaymentService(PaymentRepository paymentRepository ,
 			BookingRepository bookingRepository,
-			SeatRepository seatRepository) {
+			SeatRepository seatRepository,
+			NotificationProducer notificationProducer) {
 		this.paymentRepository=paymentRepository;
 		this.bookingRepository=bookingRepository;
 		this.seatRepository=seatRepository;
+		this.notificationProducer=notificationProducer;
 	}
 
 	
@@ -83,7 +87,9 @@ public class PaymentService {
 		Seats s = b.getSeats();
 		if(success && b != null) {
 			b.setStatus(Status.CONFIRMED);
-		  	s.setSeatStatus(SeatStatus.BOOKED );		  	
+		  	s.setSeatStatus(SeatStatus.BOOKED );	
+			notificationProducer.publishBookingConfirmed(b.getBookId(), b.getUser().getEmail());
+
 		}else {
 			b.setStatus(Status.FAILED);
 	        s.setSeatStatus(SeatStatus.AVAILABLE); 
