@@ -37,6 +37,7 @@ export class RegisterComponent implements OnInit {
       next:(response)=>{
         this.loading=false;
       console.log('Registration successful:',response);
+      this.authService.saveToken(response.accessToken);
       this.router.navigate(['/']);
       },
       error:(error)=>{

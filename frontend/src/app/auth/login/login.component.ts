@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       next:(res)=>{
         this.loading=false;
         console.log('Login successful:',res);
+        this.authService.saveToken(res.accessToken);
         this.router.navigate(['/']);
         },
         error:(err)=>{

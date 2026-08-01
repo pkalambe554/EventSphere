@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './shared/header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,RouterLink],
-  template: `  <nav style="padding: 1rem 1.5rem; display: flex; gap: 1.5rem; font-family: sans-serif;">
-      <a routerLink="/events">Events</a>
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
-    </nav>
-    <router-outlet></router-outlet>`
+  imports: [RouterOutlet,RouterLink,HeaderComponent],
+  template: ` 
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  `
 })
 export class AppComponent {}

@@ -1,0 +1,18 @@
+<header class="site-header">
+  <a routerLink="/events" class="site-header__brand">
+    <span class="site-header__brand-mark">EventSphere</span>
+  </a>
+
+  <nav class="site-header__nav">
+    <a routerLink="/events" routerLinkActive="site-header__link--active" class="site-header__link">Events</a>
+
+    <ng-container *ngIf="!authService.isLoggedIn()">
+      <a routerLink="/login" routerLinkActive="site-header__link--active" class="site-header__link">Login</a>
+      <a routerLink="/register" class="site-header__link site-header__link--cta">Sign up</a>
+    </ng-container>
+
+    <ng-container *ngIf="authService.isLoggedIn()">
+      <button class="site-header__link site-header__link--button" (click)="logout()">Log out</button>
+    </ng-container>
+  </nav>
+</header>

@@ -1,0 +1,67 @@
+@import '../../auth/auth-theme.css';
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'Inter', sans-serif;
+}
+
+.site-header__brand {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--paper);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.site-header__link {
+  color: rgba(251, 248, 242, 0.78);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+.site-header__link:hover {
+  color: var(--paper);
+}
+
+.site-header__link--active {
+  color: var(--amber);
+}
+
+.site-header__link--cta {
+  background: var(--amber);
+  color: var(--ink);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.site-header__link--cta:hover {
+  background: var(--amber-deep);
+  color: var(--ink);
+}
+
+.site-header__link--button {
+  color: rgba(251, 248, 242, 0.78);
+}
+
+.site-header__link--button:hover {
+  color: #e8734a;
+}
