@@ -51,3 +51,4 @@ cd frontend && ng build
 cd backend && ./mvnw clean package
 # run: java -jar target/eventsphere-backend.jar
 ```
+grafana pass:Grafana@1234
