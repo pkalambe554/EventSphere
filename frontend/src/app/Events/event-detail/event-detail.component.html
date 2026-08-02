@@ -1,0 +1,67 @@
+<div class="detail-page" *ngIf="event">
+  <div class="detail-hero">
+    <div class="detail-hero__content">
+      <span class="detail-hero__category" *ngIf="event.category">{{ event.category }}</span>
+      <h1 class="detail-hero__title">{{ event.title }}</h1>
+      <div class="detail-hero__meta">
+        <span class="detail-hero__meta-item">📍 {{ event.venue }}</span>
+        <span class="detail-hero__meta-item">🗓 {{ event.eventDateTime | date: 'EEEE, MMM d, y' }}</span>
+        <span class="detail-hero__meta-item">🕒 {{ event.eventDateTime | date: 'h:mm a' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-body">
+    <div class="detail-main">
+      <h2 class="detail-main__heading">About this event</h2>
+      <p class="detail-main__description">{{ event.description }}</p>
+
+      <h2 class="detail-main__heading" style="margin-top: 2rem;">Select a seat</h2>
+      <div class="seat-grid">
+        <button
+          *ngFor="let seat of seats"
+          class="seat-chip"
+          [class.seat-chip--locked]="seat.seatStatus === 'LOCKED'"
+          [class.seat-chip--booked]="seat.seatStatus === 'BOOKED'"
+          [class.seat-chip--selected]="bookingSuccessSeatId === seat.seatId"
+          [disabled]="seat.seatStatus !== 'AVAILABLE'"
+          (click)="holdSeat(seat)">
+          {{ seat.seatNumber }}
+        </button>
+      </div>
+
+      <p class="form-error" *ngIf="bookingError">{{ bookingError }}</p>
+
+      <p class="detail-main__description" *ngIf="bookingSuccessSeatId && !paymentConfirmed" style="color: var(--teal); font-weight: 600;">
+        Seat held! Complete payment within 10 minutes to confirm your booking.
+      </p>
+
+      <button *ngIf="bookingSuccessSeatId && !paymentConfirmed" class="btn-primary" (click)="payNow()">
+        Pay ₹500 & Confirm Booking
+      </button>
+
+      <p *ngIf="paymentConfirmed" style="color: var(--teal); font-weight: 700; margin-top: 1rem;">
+        ✅ Booking confirmed! Check your console — a confirmation notification was triggered.
+      </p>
+    </div>
+
+    <aside class="detail-booking-card">
+      <span class="detail-booking-card__stub">ADMIT ONE</span>
+      <p class="detail-booking-card__label">Availability</p>
+      <p class="detail-booking-card__seats">
+        <span class="detail-booking-card__seats-count">{{ event.availableSeats }}</span>
+        <span class="detail-booking-card__seats-total">/ {{ event.totalSeats }} seats left</span>
+      </p>
+
+      <div class="detail-booking-card__bar">
+        <div class="detail-booking-card__bar-fill" [style.width.%]="(event.availableSeats / event.totalSeats) * 100"></div>
+      </div>
+
+      <p class="detail-booking-card__label">Pick a seat to the left to begin.</p>
+    </aside>
+  </div>
+</div>
+
+<div class="events-loading" *ngIf="!event">
+  Loading event…
+</div>

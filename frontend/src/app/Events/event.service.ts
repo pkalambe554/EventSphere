@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EventItem } from './event.model';
+import { Seat } from './Seat.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,4 +21,8 @@ export class EventService {
   getAvailableSeats(eventId: number): Observable<number> {
     return this.http.get<number>(`/api/events/${eventId}/available-seats`);
   }
+
+  getSeats(eventId: number): Observable<Seat[]> {
+  return this.http.get<Seat[]>(`/api/events/${eventId}/seats`);
+}
 }
