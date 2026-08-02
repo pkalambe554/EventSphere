@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -61,5 +62,16 @@ public class PaymentController {
 	@PostMapping("/debug-signature")
 	public String debugSignature(@RequestBody String payload) {
 	    return paymentService.computeSignature(payload);
+	}
+	
+	// In PaymentController
+	@PostMapping("/simulate-confirm/{paymentId}")
+	public ResponseEntity<Payment> simulateConfirm(@PathVariable Long paymentId) throws Exception {
+	    String idempotencyKey = "sim-" + paymentId + "-" + System.currentTimeMillis();
+	    String rawPayload = "{\"idempotencyKey\":\"" + idempotencyKey + "\",\"paymentId\":" + paymentId + ",\"success\":true}";
+	    String signature = paymentService.computeSignature(rawPayload);
+
+	    Payment payment = paymentService.handleWebhook(rawPayload, signature, idempotencyKey, paymentId, true);
+	    return ResponseEntity.ok(payment);
 	}
 }

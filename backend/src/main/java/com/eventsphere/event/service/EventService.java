@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.eventsphere.booking.entity.SeatStatus;
+import com.eventsphere.booking.entity.Seats;
 import com.eventsphere.booking.repository.SeatRepository;
 import com.eventsphere.common.exception.ApiException;
 import com.eventsphere.event.entity.Event;
@@ -42,5 +43,10 @@ public class EventService {
 	
 	public long getAvailableSeatCount(Event event) {
 	    return seatRepository.countByEventAndSeatStatus(event, SeatStatus.AVAILABLE);
+	}
+
+	public List<Seats> getSeatsForEvent(Event event) {
+		// TODO Auto-generated method stub
+		return seatRepository.findByEvent(event);
 	}
 }

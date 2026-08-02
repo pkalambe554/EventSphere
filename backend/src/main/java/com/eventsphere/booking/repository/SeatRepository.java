@@ -1,5 +1,6 @@
 package com.eventsphere.booking.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,7 @@ public interface SeatRepository extends JpaRepository<Seats, Long> {
 	 Optional<Seats>findWithLockBySeatId(Long seatId);
 	
 	long countByEventAndSeatStatus(Event event, SeatStatus seatStatus);
+
+	List<Seats> findByEvent(Event event);
 
 }

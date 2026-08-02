@@ -36,6 +36,7 @@ public class SecurityConfig {
                     .requestMatchers("/api/auth/**").permitAll()   // Allow JWT test endpoints
                     .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
                     .requestMatchers("/api/payments/webhook", "/api/payments/debug-signature").permitAll()
+                    .requestMatchers("/api/payments/simulate-confirm/**").permitAll()
                     .requestMatchers("/actuator/**").permitAll()
             		.anyRequest().authenticated()
             )
