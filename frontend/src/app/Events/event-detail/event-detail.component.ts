@@ -78,11 +78,25 @@ payNow(): void {
     next: (payment) => {
       this.currentPaymentId = payment.id;
       this.bookingService.simulateConfirm(payment.id).subscribe({
-        next: () => (this.paymentConfirmed = true),
+        next: () =>{
+          this.paymentConfirmed = true;
+          this.refreshAvailableSeats();
+        },
         error: (err) => (this.bookingError = err.error?.message || 'Payment failed.')
       });
     },
     error: (err) => (this.bookingError = err.error?.message || 'Could not start payment.')
+  });
+}
+
+refreshAvailableSeats(): void {
+  if (!this.event) return;
+  this.eventService.getAvailableSeats(this.event.event_id).subscribe({
+    next: (count) => {
+      if (this.event) {
+        this.event.availableSeats = count;
+      }
+    }
   });
 }
 }
