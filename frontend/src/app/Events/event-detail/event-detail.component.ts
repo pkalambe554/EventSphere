@@ -6,12 +6,13 @@ import { EventItem } from '../event.model';
 import { BookingService } from '../../booking/booking.service';
 import { AuthService } from '../../auth/auth.service';
 import { Seat } from '../Seat.model';
+import { ToastService } from '../../shared/toast.service';
 
 @Component({
   selector: 'app-event-detail',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './event-detail.component.html',
+  templateUrl:'./event-detail.component.html',
   styleUrl: './event-detail.component.css'
 })
 export class EventDetailComponent implements OnInit {
@@ -22,12 +23,14 @@ export class EventDetailComponent implements OnInit {
  currentBookingId: number | null = null;
 currentPaymentId: number | null = null;
 paymentConfirmed = false;
+paymentLoading =false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private eventService: EventService,
     private bookingService: BookingService,
-    public authService: AuthService
+    public authService: AuthService,
+    public toastService: ToastService,
   ) {}
 
   ngOnInit(): void {
@@ -63,29 +66,39 @@ holdSeat(seat: Seat): void {
       seat.seatStatus = 'LOCKED';
       this.bookingSuccessSeatId = seat.seatId;
       this.currentBookingId = booking.bookId;
+     this.toastService.show('Seat held! Complete payment within 10 minutes.', 'success');
+
     },
     error: (err) => {
-      this.bookingError = err.error?.message || 'Could not hold this seat.';
-    }
+this.toastService.show(err.error?.message || 'Could not hold this seat.', 'error');    }
   });
 }
 
 payNow(): void {
-  console.log("Current Booking ID: %s", this.currentBookingId);
   if (!this.currentBookingId) return;
 
+  this.paymentLoading = true;
   this.bookingService.initiatePayment(this.currentBookingId, 500).subscribe({
     next: (payment) => {
       this.currentPaymentId = payment.id;
       this.bookingService.simulateConfirm(payment.id).subscribe({
-        next: () =>{
+        next: () => {
+          this.paymentLoading = false;
           this.paymentConfirmed = true;
           this.refreshAvailableSeats();
+          this.toastService.show('Booking confirmed!', 'success');
+
         },
-        error: (err) => (this.bookingError = err.error?.message || 'Payment failed.')
+        error: (err) => {
+          this.paymentLoading = false;
+          this.toastService.show(err.error?.message || 'Payment failed.', 'error');
+        }
       });
     },
-    error: (err) => (this.bookingError = err.error?.message || 'Could not start payment.')
+    error: (err) => {
+      this.paymentLoading = false;
+      this.toastService.show(err.error?.message || 'Could not start payment.', 'error');
+    }
   });
 }
 

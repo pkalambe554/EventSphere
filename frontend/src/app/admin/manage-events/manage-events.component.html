@@ -1,0 +1,34 @@
+<div class="admin-page">
+  <div class="admin-list-card">
+    <div class="admin-list-card__header">
+      <h1 class="admin-form-card__title">Manage events</h1>
+      <a routerLink="/admin/create-event" class="btn-primary admin-list-card__add">+ New Event</a>
+    </div>
+
+    <table class="admin-table" *ngIf="events.length > 0">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Venue</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of events">
+          <td>{{ e.title }}</td>
+          <td>{{ e.venue }}</td>
+          <td>{{ e.category }}</td>
+          <td>{{ e.eventDateTime | date: 'MMM d, y' }}</td>
+          <td class="admin-table__actions">
+            <a [routerLink]="['/admin/edit-event', e.event_id]" class="admin-table__link">Edit</a>
+            <button class="admin-table__link admin-table__link--danger" (click)="deleteEvent(e)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="events-empty" *ngIf="events.length === 0">No events yet.</p>
+  </div>
+</div>

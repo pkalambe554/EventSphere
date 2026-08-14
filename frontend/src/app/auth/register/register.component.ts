@@ -38,6 +38,7 @@ export class RegisterComponent implements OnInit {
         this.loading=false;
       console.log('Registration successful:',response);
       this.authService.saveToken(response.accessToken);
+      this.authService.saveRole(response.role);
       this.router.navigate(['/']);
       },
       error:(error)=>{

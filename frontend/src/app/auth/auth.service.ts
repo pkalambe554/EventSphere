@@ -22,6 +22,12 @@ export class AuthService {
     localStorage.setItem('accessToken',token);
   }
 
+  saveRole(role:string){
+    localStorage.setItem('userRole',role);
+  }
+  getRole(){
+    return localStorage.getItem('userRole');
+  }
   getToken(){
    return localStorage.getItem('accessToken');
   }
@@ -30,8 +36,14 @@ isLoggedIn(): boolean {
   return this.getToken() !== null;
 }
 
+isAdmin(): boolean {
+  return this.getRole() === 'ADMIN';
+}
+
 logout(): void {
   localStorage.removeItem('accessToken');
+    localStorage.removeItem('userRole');
+
 }
 
 }

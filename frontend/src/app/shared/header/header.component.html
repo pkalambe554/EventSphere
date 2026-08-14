@@ -5,7 +5,8 @@
 
   <nav class="site-header__nav">
     <a routerLink="/events" routerLinkActive="site-header__link--active" class="site-header__link">Events</a>
-
+    
+<a *ngIf="authService.isAdmin()" routerLink="/admin/manage-events" class="site-header__link">Admin</a>
     <ng-container *ngIf="!authService.isLoggedIn()">
       <a routerLink="/login" routerLinkActive="site-header__link--active" class="site-header__link">Login</a>
       <a routerLink="/register" class="site-header__link site-header__link--cta">Sign up</a>

@@ -1,0 +1,48 @@
+<div class="admin-page">
+  <div class="admin-form-card">
+    <span class="admin-form-card__stub">STAFF ONLY</span>
+    <p class="admin-form-card__eyebrow">EVENTSPHERE ADMIN</p>
+    <h1 class="admin-form-card__title">Create a new event</h1>
+    <p class="admin-form-card__subtitle">Fill in the details below — seats are generated automatically.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="admin-form">
+      <label class="field">
+        <span class="field__label">Title</span>
+        <input formControlName="title" placeholder="e.g. Coldplay Live" />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Description</span>
+        <textarea formControlName="description" rows="3" placeholder="What's this event about?"></textarea>
+      </label>
+
+      <div class="admin-form__row">
+        <label class="field">
+          <span class="field__label">Venue</span>
+          <input formControlName="venue" placeholder="e.g. Wankhede Stadium" />
+        </label>
+
+        <label class="field">
+          <span class="field__label">Category</span>
+          <input formControlName="category" placeholder="e.g. Music" />
+        </label>
+      </div>
+
+      <div class="admin-form__row">
+        <label class="field">
+          <span class="field__label">Date & time</span>
+          <input type="datetime-local" formControlName="eventDateTime" />
+        </label>
+
+        <label class="field">
+          <span class="field__label">Total seats</span>
+          <input type="number" formControlName="totalSeats" min="1" />
+        </label>
+      </div>
+
+      <button class="btn-primary admin-form__submit" [disabled]="form.invalid || loading" type="submit">
+        {{ loading ? 'Creating…' : 'Create Event' }}
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+.admin-list-card {
+  width: 100%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 24px 48px -20px rgba(20, 23, 43, 0.28);
+}
+
+.admin-list-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.admin-list-card__add {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1.5px solid var(--line);
+}
+
+.admin-table td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+.admin-table__actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.admin-table__link {
+  color: var(--teal);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.admin-table__link--danger {
+  color: #b3432f;
+}

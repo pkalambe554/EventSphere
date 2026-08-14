@@ -30,19 +30,18 @@
         </button>
       </div>
 
-      <p class="form-error" *ngIf="bookingError">{{ bookingError }}</p>
+      <!-- <p class="form-error" *ngIf="bookingError">{{ bookingError }}</p> -->
 
-      <p class="detail-main__description" *ngIf="bookingSuccessSeatId && !paymentConfirmed" style="color: var(--teal); font-weight: 600;">
+      <!-- <p class="detail-main__description" *ngIf="bookingSuccessSeatId && !paymentConfirmed" style="color: var(--teal); font-weight: 600;">
         Seat held! Complete payment within 10 minutes to confirm your booking.
-      </p>
+      </p> -->
 
-      <button *ngIf="bookingSuccessSeatId && !paymentConfirmed" class="btn-primary" (click)="payNow()">
-        Pay ₹500 & Confirm Booking
+       <button *ngIf="bookingSuccessSeatId && !paymentConfirmed" class="btn-primary" [disabled]="paymentLoading" (click)="payNow()">
+        {{ paymentLoading ? 'Processing…' : 'Pay ₹500 & Confirm Booking' }}
       </button>
-
-      <p *ngIf="paymentConfirmed" style="color: var(--teal); font-weight: 700; margin-top: 1rem;">
+      <!-- <p *ngIf="paymentConfirmed" style="color: var(--teal); font-weight: 700; margin-top: 1rem;">
         ✅ Booking confirmed! Check your console — a confirmation notification was triggered.
-      </p>
+      </p> -->
     </div>
 
     <aside class="detail-booking-card">

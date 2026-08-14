@@ -25,4 +25,14 @@ export class EventService {
   getSeats(eventId: number): Observable<Seat[]> {
   return this.http.get<Seat[]>(`/api/events/${eventId}/seats`);
 }
+  create(event: any): Observable<EventItem> {
+    return this.http.post<EventItem>('/api/events/event', event);
+  }
+  update(id: number, event: any): Observable<EventItem> {
+  return this.http.put<EventItem>(`/api/events/${id}` , event);
+}
+
+delete(id: number): Observable<void> {
+  return this.http.delete<void>(`/api/events/${id}`);
+}
 }

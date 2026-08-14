@@ -1,0 +1,10 @@
+<div class="toast-stack">
+  <div
+    *ngFor="let t of toastService.toasts()"
+    class="toast"
+    [class.toast--error]="t.type === 'error'"
+    [class.toast--success]="t.type === 'success'"
+    (click)="toastService.dismiss(t.id)">
+    {{ t.message }}
+  </div>
+</div>

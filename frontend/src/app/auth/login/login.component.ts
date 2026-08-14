@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
   form:FormGroup;
   errorMessage: string = '';
   loading:boolean=false;
-  constructor(private authService: AuthService ,
+  constructor(private route: ActivatedRoute,
+    private authService: AuthService ,
               private fb: FormBuilder,
               private router : Router) {
                this.form=this.fb.group({
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
         this.loading=false;
         console.log('Login successful:',res);
         this.authService.saveToken(res.accessToken);
+        this.authService.saveRole(res.role);
         this.router.navigate(['/']);
         },
         error:(err)=>{
@@ -43,7 +45,10 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  if (this.route.snapshot.queryParamMap.get('sessionExpired')) {
+    this.errorMessage = 'Your session expired. Please log in again.';
   }
+}
 
 }

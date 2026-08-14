@@ -1,0 +1,108 @@
+@import '../../auth/auth-theme.css';
+@import '../../events/events-theme.css';
+
+.admin-page {
+  min-height: 100vh;
+  background: var(--paper);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+}
+
+.admin-form-card {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 2.25rem 2rem 2rem;
+  box-shadow: 0 24px 48px -20px rgba(20, 23, 43, 0.28);
+}
+
+.admin-form-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  right: 2rem;
+  height: 2px;
+  background-image: radial-gradient(circle, var(--line) 1.4px, transparent 1.6px);
+  background-size: 10px 100%;
+  background-repeat: repeat-x;
+}
+
+.admin-form-card__stub {
+  position: absolute;
+  top: -0.6rem;
+  right: 1.5rem;
+  background: var(--teal);
+  color: var(--paper);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  transform: rotate(3deg);
+}
+
+.admin-form-card__eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--amber-deep);
+  margin: 1.25rem 0 0.6rem;
+}
+
+.admin-form-card__title {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin: 0 0 0.35rem;
+}
+
+.admin-form-card__subtitle {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin: 0 0 1.75rem;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.admin-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+.admin-form textarea {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  padding: 0.7rem 0.85rem;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  resize: vertical;
+}
+
+.admin-form textarea:focus {
+  outline: 2px solid var(--teal);
+  outline-offset: 1px;
+  border-color: var(--teal);
+}
+
+.admin-form__submit {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 560px) {
+  .admin-form__row {
+    grid-template-columns: 1fr;
+  }
+}   
