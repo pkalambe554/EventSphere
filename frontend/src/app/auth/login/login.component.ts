@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
   form:FormGroup;
   errorMessage: string = '';
   loading:boolean=false;
+  showPassword = false;
+
   constructor(private route: ActivatedRoute,
     private authService: AuthService ,
               private fb: FormBuilder,
@@ -44,11 +46,14 @@ export class LoginComponent implements OnInit {
         }
     })
   }
-
+  togglePasswordVisibility(): void {
+  this.showPassword = !this.showPassword;
+}
   ngOnInit(): void {
   if (this.route.snapshot.queryParamMap.get('sessionExpired')) {
     this.errorMessage = 'Your session expired. Please log in again.';
   }
 }
+
 
 }

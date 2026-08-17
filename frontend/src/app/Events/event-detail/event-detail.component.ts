@@ -40,7 +40,10 @@ paymentLoading =false;
     }
 
     this.eventService.getEventById(+id).subscribe({
-      next: (data) => (this.event = data),
+      next: (data) =>{
+        this.event = data;
+       this.refreshAvailableSeats();
+      } ,
       error: () => (this.event = null)
     });
 
@@ -48,6 +51,7 @@ paymentLoading =false;
       next: (data) => (this.seats = data),
       error: () => (this.seats = [])
     });
+    
   }
 
  
@@ -86,6 +90,7 @@ payNow(): void {
           this.paymentLoading = false;
           this.paymentConfirmed = true;
           this.refreshAvailableSeats();
+          this.refreshSeats(); 
           this.toastService.show('Booking confirmed!', 'success');
 
         },
@@ -101,7 +106,13 @@ payNow(): void {
     }
   });
 }
-
+refreshSeats(): void {
+   if (!this.event) return;
+    this.eventService.getSeats(this.event.event_id).subscribe({
+      next: (data) => (this.seats = data)
+    });
+  
+}
 refreshAvailableSeats(): void {
   if (!this.event) return;
   this.eventService.getAvailableSeats(this.event.event_id).subscribe({

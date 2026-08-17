@@ -227,6 +227,40 @@
   text-decoration: underline;
 }
 
+.field__password-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.field__password-wrapper input {
+  flex: 1;
+  padding-right: 2.75rem;
+}
+
+.field__password-toggle {
+  position: absolute;
+  right: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.field__password-toggle:hover {
+  color: var(--teal);
+}
+
+.field__password-toggle:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 1px;
+}
 @media (max-width: 860px) {
   .auth-screen {
     grid-template-columns: 1fr;

@@ -17,6 +17,11 @@
       <p class="detail-main__description">{{ event.description }}</p>
 
       <h2 class="detail-main__heading" style="margin-top: 2rem;">Select a seat</h2>
+      <div class="seat-legend">
+      <span class="seat-legend__item"><span class="seat-legend__swatch seat-legend__swatch--available"></span> Available</span>
+      <span class="seat-legend__item"><span class="seat-legend__swatch seat-legend__swatch--locked"></span> Held by someone</span>
+      <span class="seat-legend__item"><span class="seat-legend__swatch seat-legend__swatch--booked"></span> Booked</span>
+    </div>
       <div class="seat-grid">
         <button
           *ngFor="let seat of seats"
