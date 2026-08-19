@@ -18,6 +18,14 @@ export class AuthService {
     return this.http.post<AuthResponse>('/api/auth/login',request);   
   }
 
+  forgotPassword(email: string):Observable<string>{
+    return this.http.post('/api/auth/forgot-password',{email} ,{responseType:'text'});
+  }
+
+  resetPassword(token :string,newPassword:string):Observable<string>{
+    return this.http.post('/api/auth/reset-password',{token,newPassword} ,{responseType:'text'});
+  }
+
   saveToken(token:string){
     localStorage.setItem('accessToken',token);
   }
