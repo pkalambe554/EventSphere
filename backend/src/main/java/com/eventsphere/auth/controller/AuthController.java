@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eventsphere.auth.dto.AuthResponse;
+import com.eventsphere.auth.dto.ForgotPasswordRequest;
 import com.eventsphere.auth.dto.LoginRequest;
 import com.eventsphere.auth.dto.RegisterRequest;
+import com.eventsphere.auth.dto.ResetPasswordRequest;
 import com.eventsphere.auth.security.JwtUtil;
 import com.eventsphere.auth.service.AuthService;
 
@@ -68,6 +70,18 @@ public class AuthController {
 	        System.out.println("================================");
 
 	        return token;
+	}
+	
+	@PostMapping("/forgot-password")
+	public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+	    authService.forgotPassword(request.getEmail());
+	    return ResponseEntity.ok("If an account exists for this email, a reset link has been sent.");
+	}
+
+	@PostMapping("/reset-password")
+	public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+	    authService.resetPassword(request.getToken(), request.getNewPassword());
+	    return ResponseEntity.ok("Password reset successfully.");
 	}
 	
 	
