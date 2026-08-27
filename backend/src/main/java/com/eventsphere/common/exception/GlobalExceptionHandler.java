@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 	 
 	 @ExceptionHandler(Exception.class)
 	    public ResponseEntity<Map<String, Object>> handleUnexpected(Exception ex) {
-//		 	ex.printStackTrace();
+		 	ex.printStackTrace();
 	        Map<String, Object> body = new LinkedHashMap<>();
 	        body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
 	        body.put("message", "Something went wrong. Please try again later.");

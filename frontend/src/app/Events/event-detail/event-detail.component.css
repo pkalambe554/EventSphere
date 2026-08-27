@@ -227,7 +227,27 @@
   color: #5b5f76;
   font-size: 0.95rem;
 }
+.btn-primary {
+  background: #c8841f;
+  color: #fbf8f2;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
 
+.btn-primary:hover:not(:disabled) {
+  background: #e8a33d;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 @media (max-width: 780px) {
   .detail-body {
     grid-template-columns: 1fr;

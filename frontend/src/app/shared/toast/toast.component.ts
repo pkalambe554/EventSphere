@@ -3,12 +3,24 @@ import { CommonModule } from '@angular/common';
 import { ToastService } from '../toast.service';
 
 @Component({
-  selector: 'app-toast',
+  selector: 'app-toast-container',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './toast.component.html',
-  styleUrl: './toast.component.css'
-})
-export class ToastComponent {
+  template: `
+    <div class="toast-stack">
+      <div
+        *ngFor="let t of toastService.toasts()"
+        class="toast"
+        [class.toast--success]="t.type === 'success'"
+        [class.toast--error]="t.type === 'error'"
+        [class.toast--info]="t.type === 'info'"
+      >
+        <span>{{ t.message }}</span>
+        <button class="toast__close" (click)="toastService.dismiss(t.id)">✕</button>
+      </div>
+    </div>
+  `,
+styleUrl: './toast.component.css',})
+export class ToastContainerComponent {
   constructor(public toastService: ToastService) {}
 }

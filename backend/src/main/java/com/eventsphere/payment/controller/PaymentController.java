@@ -38,6 +38,7 @@ public class PaymentController {
 	
 	@PostMapping("/initiate")
 	public Payment initiate(@RequestParam Long bookingId, @RequestParam BigDecimal amount) {
+		System.out.println("API-CALL: "+" /api/payments/initiate");
 			Booking book =bookingService.findByBookId(bookingId)
 					.orElseThrow(()->new ApiException(HttpStatus.NOT_FOUND,"Not Available"));
 			return this.paymentService.initiatePayment(book, amount);
@@ -46,16 +47,21 @@ public class PaymentController {
 	@PostMapping("/webhook")
 	public ResponseEntity<Payment> webhook(
 	        @RequestBody String rawPayload,
-	        @RequestHeader("X-Webhook-Signature") String signature
+	        @RequestHeader("X-Razorpay-Signature") String signature
 	) throws Exception {
+	    System.out.println("API-CALL: /api/payments/webhook");
 	    ObjectMapper mapper = new ObjectMapper();
 	    Map<String, Object> body = mapper.readValue(rawPayload, Map.class);
 
-	    String idempotencyKey = (String) body.get("idempotencyKey");
-	    Long paymentId = Long.valueOf(body.get("paymentId").toString());
-	    boolean success = (Boolean) body.get("success");
+	    Map<String, Object> payload = (Map<String, Object>) body.get("payload");
+	    Map<String, Object> paymentEntity = (Map<String, Object>) ((Map<String, Object>) payload.get("payment")).get("entity");
 
-	    Payment payment = paymentService.handleWebhook(rawPayload, signature, idempotencyKey, paymentId, success);
+	    String razorpayPaymentId = (String) paymentEntity.get("id");
+	    String razorpayOrderId = (String) paymentEntity.get("order_id");
+	    String status = (String) paymentEntity.get("status");
+	    boolean success = "captured".equals(status);
+
+	    Payment payment = paymentService.handleWebhook(rawPayload, signature, razorpayOrderId,razorpayPaymentId, success);
 	    return ResponseEntity.ok(payment);
 	}
 	// TEMPORARY - for testing signature generation only, delete once webhook flow is confirmed working
@@ -67,11 +73,20 @@ public class PaymentController {
 	// In PaymentController
 	@PostMapping("/simulate-confirm/{paymentId}")
 	public ResponseEntity<Payment> simulateConfirm(@PathVariable Long paymentId) throws Exception {
+		System.out.println("API-CALL: "+" /api/payments/simulate-confirm/{paymentId}");
+
 	    String idempotencyKey = "sim-" + paymentId + "-" + System.currentTimeMillis();
 	    String rawPayload = "{\"idempotencyKey\":\"" + idempotencyKey + "\",\"paymentId\":" + paymentId + ",\"success\":true}";
 	    String signature = paymentService.computeSignature(rawPayload);
 
-	    Payment payment = paymentService.handleWebhook(rawPayload, signature, idempotencyKey, paymentId, true);
+	    Payment payment = paymentService.handleWebhook(rawPayload, signature, idempotencyKey, "", true);
 	    return ResponseEntity.ok(payment);
+	}
+	@PostMapping("/create-order")
+	public ResponseEntity<Map<String, Object>> createOrder(
+	        @RequestParam Long bookingId,
+	        @RequestParam BigDecimal amount
+	) throws Exception {
+	    return ResponseEntity.ok(paymentService.createRazorpayOrder(bookingId, amount));
 	}
 }

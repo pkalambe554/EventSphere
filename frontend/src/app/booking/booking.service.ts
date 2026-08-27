@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -16,5 +16,11 @@ export class BookingService {
 
 simulateConfirm(paymentId: number): Observable<any> {
   return this.http.post<any>(`/api/payments/simulate-confirm/${paymentId}`, {});
+}
+createOrder(bookingId: number, amount: number): Observable<any> {
+  return this.http.post<any>(`/api/payments/create-order?bookingId=${bookingId}&amount=${amount}`, {});
+}
+getBooking(bookingId: number): Observable<any> {
+  return this.http.get<any>(`/api/bookings/${bookingId}`);
 }
 }
